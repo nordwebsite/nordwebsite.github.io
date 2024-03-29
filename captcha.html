@@ -16,13 +16,16 @@
         var WebApp = window.Telegram.WebApp;
         var ip;
 
-        $('#hiText').text('Привет, ' + WebApp.initDataUnsafe.user.first_name + ', пройди капчу пожалуйста')
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        $('#hiText').text('Привет, ' + WebApp.initData.user.first_name + ', пройди капчу пожалуйста')
         
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
         });
         console.log();
         function onSubmit(token) {
+            await delay(3000)
             WebApp.sendData('success_' + ip + navigator.userAgent)
         }
     </script>
