@@ -10,13 +10,13 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <p>NORD</p>
+    <p id='hiText'>NORD CAPTCHA</p>
     <div class="g-recaptcha" data-sitekey="6LegoKgpAAAAAAWceFwEo7rGNDmimBkbDLYPaYOL" data-callback="onSubmit"></div><br>
     <script>
         var WebApp = window.Telegram.WebApp;
         var ip;
 
-        $('#pTest').text('Привет, ${WebApp.WebAppUser.first_name}, пройди капчу пожалуйста что бы общаться в ${WebApp.WebAppChat.title}')
+        $('#hiText').text('Привет, ${WebApp.WebAppUser.first_name}, пройди капчу пожалуйста что бы общаться в ${WebApp.WebAppChat.title}')
         
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
