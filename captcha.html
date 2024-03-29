@@ -16,7 +16,7 @@
         var WebApp = window.Telegram.WebApp;
         var ip;
 
-        $('#hiText').text('Привет, ' + WebApp.WebAppUser.first_name + ', пройди капчу пожалуйста')
+        $('#hiText').text('Привет, ' + WebApp.initDataUnsafe.user.first_name + ', пройди капчу пожалуйста')
         
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
