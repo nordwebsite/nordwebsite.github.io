@@ -10,20 +10,18 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <p id='hiText'>Привет, пройди капчу ниже пожалуйста что бы общаться в чате</p>
+    <p>Привет, пройди капчу ниже пожалуйста что бы общаться в чате</p>
     <div class="g-recaptcha" data-sitekey="6LegoKgpAAAAAAWceFwEo7rGNDmimBkbDLYPaYOL" data-callback="onSubmit"></div><br>
     <script>
         var WebApp = window.Telegram.WebApp;
         var ip;
-
-        $('#hiText').text('')
         
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
         });
         console.log();
         function onSubmit(token) {
-            setTimeout(() => { WebApp.sendData('success_' + ip + navigator.userAgent); }, 3000);
+            setTimeout(() => { WebApp.sendData('success_' + ip + '_' navigator.userAgent); }, 3000);
         }
     </script>
 </body>
