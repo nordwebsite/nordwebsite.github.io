@@ -16,8 +16,6 @@
         var WebApp = window.Telegram.WebApp;
         var ip;
 
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-
         $('#hiText').text('Привет, ' + WebApp.initData.user.first_name + ', пройди капчу пожалуйста')
         
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
@@ -25,8 +23,7 @@
         });
         console.log();
         function onSubmit(token) {
-            delay(3000)
-            WebApp.sendData('success_' + ip + navigator.userAgent)
+            setTimeout(() => { WebApp.sendData('success_' + ip + navigator.userAgent); }, 3000);
         }
     </script>
 </body>
