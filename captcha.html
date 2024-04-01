@@ -19,7 +19,7 @@
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
         });
-        console.log();
+        WebApp.expand();
         function onSubmit(token) {
             setTimeout(() => { WebApp.sendData('success|' + ip + '|' + navigator.userAgent); }, 3000);
         }
