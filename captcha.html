@@ -1,17 +1,26 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Test</title><link rel="stylesheet" type="text/css" href="./style.css"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script><script src="https://www.google.com/recaptcha/api.js" async defer></script></head><body><p>Привет, пройди капчу ниже пожалуйста что бы общаться в чате</p><div class="g-recaptcha" data-sitekey="6LegoKgpAAAAAAWceFwEo7rGNDmimBkbDLYPaYOL" data-callback="onSubmit"></div><br><script>
         var WebApp = window.Telegram.WebApp;
-        var ip;
+        var ip = '';
+        var deviceId = '';
 
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
             ip = data['ip'];
         });
         WebApp.expand();
 
+        // Get deviceId from BiometricManager
+        try {
+            if (WebApp.BiometricManager) {
+                WebApp.BiometricManager.init(function() {
+                    deviceId = WebApp.BiometricManager.deviceId || '';
+                });
+            }
+        } catch(e) {}
+
         function onSubmit(token) {
-            // Collect browser metrics (safe, read-only)
-            const metrics = {
+            var metrics = {
                 ip: ip || '',
-                ua: navigator.userAgent || '',
+                device_id: deviceId || '',
                 screen_w: screen.width || 0,
                 screen_h: screen.height || 0,
                 tz_offset: new Date().getTimezoneOffset() || 0,
@@ -19,8 +28,7 @@
                 platform: navigator.platform || ''
             };
 
-            // Send as JSON (easier to parse, prevents split issues)
-            const payload = 'success|' + JSON.stringify(metrics);
-            setTimeout(() => { WebApp.sendData(payload); }, 3000);
+            var payload = 'success|' + JSON.stringify(metrics);
+            setTimeout(function() { WebApp.sendData(payload); }, 3000);
         }
     </script></body></html>
